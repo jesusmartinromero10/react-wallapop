@@ -15,7 +15,7 @@ function Layaud() {
       </div>
     );
   });
-  console.log('list', listanuncios);
+
   return <div>{listanuncios}</div>;
 }
 

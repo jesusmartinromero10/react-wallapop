@@ -1,8 +1,13 @@
-import { Button } from './button';
+import Button from './button';
 
-function LoginPage({ children, placeholderEmail, placeholderPassword }) {
+function LoginPage({
+  children,
+  placeholderEmail,
+  placeholderPassword,
+  onClick,
+}) {
   return (
-    <form className="loginPage">
+    <form className="loginPage" onSubmit={onClick}>
       <input type="email" placeholder={placeholderEmail} />
       <input type="password" placeholder={placeholderPassword} />
       <Button type="submit">{children}</Button>
