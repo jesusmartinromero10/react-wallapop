@@ -3,15 +3,18 @@ import Layaud from './components/layaud';
 import LoginPage from './components/loginPage';
 import { useState } from 'react';
 
-function App() {
-  const [isLogged, setIsLogged] = useState(false);
+function App({ isInitiallyLogged }) {
+  const [isLogged, setIsLogged] = useState(isInitiallyLogged);
   const handleLoging = () => {
     setIsLogged(true);
+  };
+  const handleLogout = () => {
+    setIsLogged(false);
   };
   return (
     <div className="App">
       {isLogged ? (
-        <Layaud />
+        <Layaud onLogout={handleLogout} />
       ) : (
         <LoginPage
           setIsLogged={handleLoging}

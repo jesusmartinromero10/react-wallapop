@@ -10,10 +10,13 @@ function LoginPage({
 }) {
   const handleSubmit = async event => {
     event.preventDefault();
-    await login({
-      email: event.target.email.value,
-      password: event.target.password.value,
-    });
+    await login(
+      {
+        email: event.target.email.value,
+        password: event.target.password.value,
+      },
+      checked,
+    );
     setIsLogged();
   };
   const [credential, setCredential] = useState({
@@ -32,7 +35,9 @@ function LoginPage({
   const disableButton = !credential.email || !credential.password;
 
   const [checked, setCheked] = useState(false);
-  const handleChecked = event => setCheked(event.target.checked);
+  const handleChecked = event => {
+    setCheked(event.target.checked);
+  };
   return (
     <form className="loginPage" onSubmit={handleSubmit}>
       <h1>Log in Page Advertisement</h1>
