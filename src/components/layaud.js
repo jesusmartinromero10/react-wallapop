@@ -1,5 +1,5 @@
 import React from 'react';
-import { removeAuthorizationHeader } from '../api/client';
+import { logout } from '../api/servicesLogin';
 import Button from './button';
 
 function Layaud({ onLogout }) {
@@ -8,8 +8,8 @@ function Layaud({ onLogout }) {
     { nombre: 'perro', precio: '50000', venta: 'false' },
   ];
   const handlerClick = async () => {
-    await onLogout();
-    removeAuthorizationHeader();
+    await logout();
+    onLogout();
   };
   const listanuncios = anuncios.map(e => {
     return (
