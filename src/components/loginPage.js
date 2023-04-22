@@ -28,6 +28,11 @@ function LoginPage({
       setCredential({ ...credential, password: event.target.value });
     }
   };
+
+  const disableButton = !credential.email || !credential.password;
+
+  const [checked, setCheked] = useState(false);
+  const handleChecked = event => setCheked(event.target.checked);
   return (
     <form className="loginPage" onSubmit={handleSubmit}>
       <h1>Log in Page Advertisement</h1>
@@ -36,15 +41,19 @@ function LoginPage({
         name="email"
         placeholder={placeholderEmail}
         onChange={handleChange}
+        value={credential.email} //con esto controlamos lo que se muestra en los input en el estado
       />
       <input
         type="password"
         name="password"
         placeholder={placeholderPassword}
         onChange={handleChange}
+        value={credential.password}
       />
-      <Button type="submit">{children}</Button>
-      <input type="checkbox" />
+      <Button type="submit" disabled={disableButton}>
+        {children}
+      </Button>
+      <input type="checkbox" checked={checked} onChange={handleChecked} />
       <label>Marca para guardar credenciales</label>
     </form>
   );

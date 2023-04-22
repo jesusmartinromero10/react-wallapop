@@ -56,6 +56,7 @@ const Button = styled.button`
 
   :disabled {
     cursor: auto;
+    opacity: 0.5;
   }
 `;
 
