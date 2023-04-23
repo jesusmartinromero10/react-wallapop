@@ -10,12 +10,13 @@ const NewAdvertPage = () => {
 
   const handleSubmitNewPage = async event => {
     event.preventDefault();
+    console.log(event.target.photo.files[0]);
     await CreateNewAdvert({
       name: event.target.name.value,
       sale: event.target.sale.value,
       price: event.target.price.value,
       tags: event.target.tags.value,
-      //photo: event.target.files[0],
+      photo: event.target.photo.files[0],
     });
   };
   const [data, setData] = useState({
@@ -38,6 +39,11 @@ const NewAdvertPage = () => {
 
   const handleChangeTags = event => {
     setData({ ...data, tags: event.target.value });
+  };
+
+  const handleChangePhoto = event => {
+    console.log(event.target.files[0]);
+    setData({ ...data, photo: event.target.files[0] });
   };
 
   return (
@@ -71,7 +77,7 @@ const NewAdvertPage = () => {
         placeholder="precio de venta"
         value={data.price.value}
         onChange={handlechangePice}
-      ></input>
+      />
       <label name="tags">Tags</label>
       <select name="tags" onChange={handleChangeTags}>
         <option value="lifestyle">Lifestyle</option>
@@ -79,6 +85,12 @@ const NewAdvertPage = () => {
         <option value="motor">Motor</option>
         <option value="work">Work</option>
       </select>
+      <input
+        content-type="multipart/form-data"
+        type="file"
+        name="photo"
+        onChange={handleChangePhoto}
+      />
       <Button>Crear</Button>
     </form>
   );
