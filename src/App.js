@@ -1,7 +1,9 @@
 import './App.css';
-import Layaud from './components/layaud';
+
 import LoginPage from './components/loginPage';
 import { useState } from 'react';
+import AdvertsPage from './components/advertsPage';
+import NewAdvertPage from './components/newAdvertPage';
 
 function App({ isInitiallyLogged }) {
   const [isLogged, setIsLogged] = useState(isInitiallyLogged);
@@ -14,7 +16,10 @@ function App({ isInitiallyLogged }) {
   return (
     <div className="App">
       {isLogged ? (
-        <Layaud onLogout={handleLogout} />
+        <>
+          <AdvertsPage onLogout={handleLogout} />
+          <NewAdvertPage></NewAdvertPage>
+        </>
       ) : (
         <LoginPage
           setIsLogged={handleLoging}

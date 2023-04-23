@@ -2,7 +2,7 @@ import React from 'react';
 import { logout } from '../api/servicesLogin';
 import Button from './button';
 
-function Layaud({ onLogout }) {
+function AdvertsPage({ onLogout }) {
   const anuncios = [
     { nombre: 'barco', precio: '20000', venta: 'true ' },
     { nombre: 'perro', precio: '50000', venta: 'false' },
@@ -28,4 +28,4 @@ function Layaud({ onLogout }) {
   );
 }
 
-export default Layaud;
+export default AdvertsPage;
