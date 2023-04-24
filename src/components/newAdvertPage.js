@@ -47,7 +47,11 @@ const NewAdvertPage = () => {
   };
 
   return (
-    <form className="formNewAdvert" onSubmit={handleSubmitNewPage}>
+    <form
+      className="formNewAdvert"
+      onSubmit={handleSubmitNewPage}
+      content-type="multipart/form-data"
+    >
       <h1>Create New Advert Page</h1>
       <label
         className="labelNombreNewAdvert"
