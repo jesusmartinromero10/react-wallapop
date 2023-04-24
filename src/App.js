@@ -18,7 +18,7 @@ function App({ isInitiallyLogged }) {
       {isLogged ? (
         <>
           <AdvertsPage onLogout={handleLogout} />
-          <NewAdvertPage></NewAdvertPage>
+          <NewAdvertPage />
         </>
       ) : (
         <LoginPage

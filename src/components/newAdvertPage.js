@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
+import Layout from './layaut/Layout';
 
 const NewAdvertPage = () => {
   const [name, setName] = useState('');
@@ -47,56 +48,49 @@ const NewAdvertPage = () => {
   };
 
   return (
-    <form
-      className="formNewAdvert"
-      onSubmit={handleSubmitNewPage}
-      content-type="multipart/form-data"
-    >
-      <h1>Create New Advert Page</h1>
-      <label
-        className="labelNombreNewAdvert"
-        name="name"
-        onChange={handleChangeName}
-      >
-        Nombre:
-      </label>
-      <input
-        type="text"
-        name="name"
-        placeholder="Introduce nombre artículo"
-        value={data.name.value}
-        onChange={handleChangeName}
-      />
-      <label name="sale">
-        Venta:
-        <select name="sale" onChange={handleChangeSale}>
-          <option value={true}>True</option>
-          <option value={false}>False</option>
+    <Layout title="Wallapop">
+      <form className="formNewAdvert" onSubmit={handleSubmitNewPage}>
+        <h1>Create New Advert Page</h1>
+        <label
+          className="labelNombreNewAdvert"
+          name="name"
+          onChange={handleChangeName}
+        >
+          Nombre:
+        </label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Introduce nombre artículo"
+          value={data.name.value}
+          onChange={handleChangeName}
+        />
+        <label name="sale">
+          Venta:
+          <select name="sale" onChange={handleChangeSale}>
+            <option value={true}>True</option>
+            <option value={false}>False</option>
+          </select>
+        </label>
+        <label name="price">Precio de venta: </label>
+        <input
+          type="number"
+          name="price"
+          placeholder="precio de venta"
+          value={data.price.value}
+          onChange={handlechangePice}
+        />
+        <label name="tags">Tags</label>
+        <select name="tags" onChange={handleChangeTags}>
+          <option value="lifestyle">Lifestyle</option>
+          <option value="mobile">Mobile</option>
+          <option value="motor">Motor</option>
+          <option value="work">Work</option>
         </select>
-      </label>
-      <label name="price">Precio de venta: </label>
-      <input
-        type="number"
-        name="price"
-        placeholder="precio de venta"
-        value={data.price.value}
-        onChange={handlechangePice}
-      />
-      <label name="tags">Tags</label>
-      <select name="tags" onChange={handleChangeTags}>
-        <option value="lifestyle">Lifestyle</option>
-        <option value="mobile">Mobile</option>
-        <option value="motor">Motor</option>
-        <option value="work">Work</option>
-      </select>
-      <input
-        content-type="multipart/form-data"
-        type="file"
-        name="photo"
-        onChange={handleChangePhoto}
-      />
-      <Button>Crear</Button>
-    </form>
+        <input type="file" name="photo" onChange={handleChangePhoto} />
+        <Button>Crear</Button>
+      </form>
+    </Layout>
   );
 };
 export default NewAdvertPage;
