@@ -3,7 +3,7 @@ import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
 
-const NewAdvertPage = () => {
+const NewAdvertPage = props => {
   const [name, setName] = useState('');
   const [sale, setSale] = useState(true);
   const [price, setPrice] = useState('');
@@ -48,7 +48,7 @@ const NewAdvertPage = () => {
   };
 
   return (
-    <Layout title="Wallapop">
+    <Layout title="Wallapop" {...props}>
       <form className="formNewAdvert" onSubmit={handleSubmitNewPage}>
         <h1>Create New Advert Page</h1>
         <label
@@ -68,8 +68,8 @@ const NewAdvertPage = () => {
         <label name="sale">
           Venta:
           <select name="sale" onChange={handleChangeSale}>
-            <option value={true}>True</option>
-            <option value={false}>False</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
           </select>
         </label>
         <label name="price">Precio de venta: </label>
