@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getAllAdvert } from '../api/services';
 import { logout } from '../api/servicesLogin';
 import Button from './button';
@@ -24,17 +25,19 @@ function AdvertsPage(props) {
             <ul>
               {adverts.map(advert => (
                 <li key={advert.id}>
-                  <br></br>
-                  Nombre:{advert.name}
-                  <br></br>
-                  Venta:{advert.sale}
-                  <br></br>
-                  Precio:{advert.price}
-                  <br></br>
-                  Tags:{advert.tags}
-                  <br></br>
-                  Foto:
-                  <img src={advert.photo} alt="Fotografia" />
+                  <Link to={`/adverts/${advert.id}`}>
+                    <br></br>
+                    Nombre:{advert.name}
+                    <br></br>
+                    Venta:{advert.sale}
+                    <br></br>
+                    Precio:{advert.price}
+                    <br></br>
+                    Tags:{advert.tags}
+                    <br></br>
+                    Foto:
+                    <img src={advert.photo} alt="Fotografia" />
+                  </Link>
                 </li>
               ))}
             </ul>

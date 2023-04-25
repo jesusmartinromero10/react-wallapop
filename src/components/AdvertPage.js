@@ -2,7 +2,7 @@ import Layout from './layaut/Layout';
 
 const AdvertPage = props => {
   return (
-    <Layout {...props}>
+    <Layout title="Advertisement Page" {...props}>
       <div>Advert Page</div>
     </Layout>
   );

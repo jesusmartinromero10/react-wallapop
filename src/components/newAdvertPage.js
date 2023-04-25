@@ -11,7 +11,7 @@ const NewAdvertPage = props => {
 
   const handleSubmitNewPage = async event => {
     event.preventDefault();
-    console.log(event.target.photo.files[0]);
+
     await CreateNewAdvert({
       name: event.target.name.value,
       sale: event.target.sale.value,
@@ -43,7 +43,6 @@ const NewAdvertPage = props => {
   };
 
   const handleChangePhoto = event => {
-    console.log(event.target.files[0]);
     setData({ ...data, photo: event.target.files[0] });
   };
 

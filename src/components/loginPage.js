@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../api/servicesLogin';
 import Button from './button';
 
@@ -8,16 +9,15 @@ function LoginPage({
   placeholderPassword,
   setIsLogged,
 }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleSubmit = async event => {
     event.preventDefault();
-    await login(
-      {
-        email: event.target.email.value,
-        password: event.target.password.value,
-      },
-      checked,
-    );
+    console.log(credential);
+    await login(credential, checked);
     setIsLogged();
+    const to = location.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
+    navigate(to); //con las interrogaciones es por si viene esos estados vacios para que no de error pues si vienen vacio vas a /
   };
   const [credential, setCredential] = useState({
     email: '',

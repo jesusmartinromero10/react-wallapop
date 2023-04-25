@@ -7,6 +7,7 @@ import NewAdvertPage from './components/newAdvertPage';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AdvertPage from './components/AdvertPage';
 import NotFoundPage from './components/NotFoundPage';
+import RequireAuth from './components/RequireAuth';
 
 function App({ isInitiallyLogged }) {
   const [isLogged, setIsLogged] = useState(isInitiallyLogged);
@@ -20,7 +21,7 @@ function App({ isInitiallyLogged }) {
     <div className="App">
       <Routes>
         <Route
-          path="login"
+          path="/login"
           element={
             <LoginPage
               setIsLogged={handleLoging}
@@ -34,16 +35,29 @@ function App({ isInitiallyLogged }) {
         />
         <Route
           path="/adverts"
-          element={<AdvertsPage onLogout={handleLogout} isLogged={isLogged} />}
+          element={
+            <RequireAuth isLogged={isLogged}>
+              {' '}
+              <AdvertsPage onLogout={handleLogout} isLogged={isLogged} />
+            </RequireAuth>
+          }
         />
         <Route
           path="/adverts/:id"
-          element={<AdvertPage onLogout={handleLogout} isLogged={isLogged} />}
+          element={
+            <RequireAuth isLogged={isLogged}>
+              {' '}
+              <AdvertPage onLogout={handleLogout} isLogged={isLogged} />{' '}
+            </RequireAuth>
+          }
         />
         <Route
           path="/adverts/new"
           element={
-            <NewAdvertPage onLogout={handleLogout} isLogged={isLogged} />
+            <RequireAuth isLogged={isLogged}>
+              {' '}
+              <NewAdvertPage onLogout={handleLogout} isLogged={isLogged} />
+            </RequireAuth>
           }
         />
         <Route path="/" element={<Navigate to="/adverts" />} />
