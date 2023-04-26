@@ -67,8 +67,8 @@ const NewAdvertPage = props => {
         <label name="sale">
           Venta:
           <select name="sale" onChange={handleChangeSale}>
-            <option value="true">True</option>
-            <option value="false">False</option>
+            <option value="True">True</option>
+            <option value="False">False</option>
           </select>
         </label>
         <label name="price">Precio de venta: </label>

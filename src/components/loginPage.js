@@ -13,9 +13,10 @@ function LoginPage({
   const location = useLocation();
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(credential);
     await login(credential, checked);
+    //leguearse
     setIsLogged();
+    //redirect to pathname
     const to = location.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
     navigate(to); //con las interrogaciones es por si viene esos estados vacios para que no de error pues si vienen vacio vas a /
   };
