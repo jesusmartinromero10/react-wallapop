@@ -8,6 +8,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import AdvertPage from './components/AdvertPage';
 import NotFoundPage from './components/NotFoundPage';
 import RequireAuth from './components/RequireAuth';
+import { AuthContext } from './context/context';
 
 function App({ isInitiallyLogged }) {
   const [isLogged, setIsLogged] = useState(isInitiallyLogged);
@@ -17,53 +18,60 @@ function App({ isInitiallyLogged }) {
   const handleLogout = () => {
     setIsLogged(false);
   };
+
+  const authValue = {
+    onLogout: handleLogout,
+    isLogged,
+    onLogin: handleLoging,
+  };
   return (
     <div className="App">
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <LoginPage
-              setIsLogged={handleLoging}
-              placeholderEmail="Writte your email"
-              placeholderPassword="Writte your password"
-              type="submit"
-            >
-              Login
-            </LoginPage>
-          }
-        />
-        <Route
-          path="/adverts"
-          element={
-            <RequireAuth isLogged={isLogged}>
-              {' '}
-              <AdvertsPage onLogout={handleLogout} isLogged={isLogged} />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/adverts/:id"
-          element={
-            <RequireAuth isLogged={isLogged}>
-              {' '}
-              <AdvertPage onLogout={handleLogout} isLogged={isLogged} />{' '}
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/adverts/new"
-          element={
-            <RequireAuth isLogged={isLogged}>
-              {' '}
-              <NewAdvertPage onLogout={handleLogout} isLogged={isLogged} />
-            </RequireAuth>
-          }
-        />
-        <Route path="/" element={<Navigate to="/adverts" />} />
-        <Route path="/404" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/404" />} />
-      </Routes>
+      <AuthContext.Provider value={authValue}>
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                placeholderEmail="Writte your email"
+                placeholderPassword="Writte your password"
+                type="submit"
+              >
+                Login
+              </LoginPage>
+            }
+          />
+          <Route
+            path="/adverts"
+            element={
+              <RequireAuth>
+                {' '}
+                <AdvertsPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/adverts/:id"
+            element={
+              <RequireAuth>
+                {' '}
+                <AdvertPage />{' '}
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/adverts/new"
+            element={
+              <RequireAuth>
+                {' '}
+                <NewAdvertPage />
+              </RequireAuth>
+            }
+          />
+          <Route path="/" element={<Navigate to="/adverts" />} />
+          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+        </Routes>
+      </AuthContext.Provider>
     </div>
   );
 }

@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllAdvert } from '../api/services';
-import { logout } from '../api/servicesLogin';
-import Button from './button';
+
 import Layout from './layaut/Layout';
 
-function AdvertsPage(props) {
+function AdvertsPage() {
   //const handlerClick = async () => {
   //await logout();
   //onLogout();
   //};
-
+  const navigate = useNavigate();
   const [adverts, setAdverts] = useState([]);
 
   useEffect(() => {
-    getAllAdvert().then(adverts => setAdverts(adverts));
-  }, []);
+    getAllAdvert()
+      .then(adverts => setAdverts(adverts))
+      .catch(error => {
+        if (error.response.status === 404) {
+          navigate('/404');
+        }
+      });
+  }, [navigate]);
 
   return (
-    <Layout title="Adverts Page" {...props}>
+    <Layout title="Adverts Page">
       <div>
         {!!adverts.length ? (
           <>

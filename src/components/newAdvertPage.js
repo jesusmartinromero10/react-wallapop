@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
@@ -8,7 +9,7 @@ const NewAdvertPage = props => {
   const [sale, setSale] = useState(true);
   const [price, setPrice] = useState('');
   const [tags, setTags] = useState([]);
-
+  const navigate = useNavigate();
   const handleSubmitNewPage = async event => {
     event.preventDefault();
 
@@ -19,6 +20,7 @@ const NewAdvertPage = props => {
       tags: event.target.tags.value,
       photo: event.target.photo.files[0],
     });
+    navigate('/');
   };
   const [data, setData] = useState({
     name: '',
