@@ -4,11 +4,7 @@ import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
 
-const NewAdvertPage = props => {
-  const [name, setName] = useState('');
-  const [sale, setSale] = useState(true);
-  const [price, setPrice] = useState('');
-  const [tags, setTags] = useState([]);
+const NewAdvertPage = () => {
   const navigate = useNavigate();
   const handleSubmitNewPage = async event => {
     event.preventDefault();
@@ -49,7 +45,7 @@ const NewAdvertPage = props => {
   };
 
   return (
-    <Layout title="Wallapop" {...props}>
+    <Layout title="Wallapop">
       <form className="formNewAdvert" onSubmit={handleSubmitNewPage}>
         <h1>Create New Advert Page</h1>
         <label

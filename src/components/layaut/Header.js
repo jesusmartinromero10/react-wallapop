@@ -1,4 +1,4 @@
-import { Link, Navigate, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { logout } from '../../api/servicesLogin';
 import Button from '../button';
 import '../../styles/header.css';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import client from '../api/client';
+
 import { getAdvert } from '../api/servicesAdvert';
 import { Spinner } from '../spinner/Spinner';
 import Layout from './layaut/Layout';

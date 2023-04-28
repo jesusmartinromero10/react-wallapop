@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllAdvert } from '../api/services';
+import Button from './button';
 
 import Layout from './layaut/Layout';
 
@@ -9,6 +10,11 @@ function AdvertsPage() {
   //await logout();
   //onLogout();
   //};
+  const [data, setData] = useState({
+    sales: '',
+    priceMin: 0,
+    priceMax: Infinity,
+  });
   const navigate = useNavigate();
   const [adverts, setAdverts] = useState([]);
 
@@ -22,9 +28,57 @@ function AdvertsPage() {
       });
   }, [navigate]);
 
+  const handleClickFilter = event => {
+    event.preventDefault();
+    let filterPrice = adverts.filter(
+      advert => advert.price >= data.priceMin && advert.price <= data.priceMax,
+    );
+
+    setAdverts(filterPrice);
+
+    //const res=adverts.price.filter(advert => console.log(advert))
+    //console.log(res)
+  };
+
+  const handleChangeFilterSale = event => {
+    setData({ ...data, sales: event.target.value });
+  };
+  const handleChangeFilterPriceMax = event => {
+    setData({ ...data, priceMax: event.target.value });
+    //console.log(adverts[0].price)
+  };
+
+  const handleChangeFilterPriceMin = event => {
+    setData({ ...data, priceMin: event.target.value });
+  };
+
   return (
     <Layout title="Adverts Page">
       <div>
+        <form>
+          <input
+            type="text"
+            placeholder="filtro venta"
+            name="sales"
+            value={data.sales.value}
+            onChange={handleChangeFilterSale}
+          />
+          <input
+            type="number"
+            pattern="filtro precio"
+            name="price"
+            value={data.sales.value}
+            onChange={handleChangeFilterPriceMin}
+          />
+          <input
+            type="number"
+            pattern="filtro precio"
+            name="price"
+            value={data.sales.value}
+            onChange={handleChangeFilterPriceMax}
+          />
+          <Button onClick={handleClickFilter}>filtrar</Button>
+        </form>
         {!!adverts.length ? (
           <>
             <ul>
