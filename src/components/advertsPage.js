@@ -39,7 +39,6 @@ function AdvertsPage() {
   const handleClickFilter = event => {
     event.preventDefault();
 
-    console.log('aaa', advertFilter);
     const state = () => {
       let resultSale = '';
 

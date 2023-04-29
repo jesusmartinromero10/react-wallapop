@@ -9,7 +9,7 @@ const AdvertPage = () => {
   const [advert, setAdvert] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(advert);
+
   const params = useParams();
   const navigate = useNavigate();
 

@@ -10,7 +10,6 @@ const NewAdvertPage = () => {
   const handleSubmitNewPage = async event => {
     event.preventDefault();
 
-    console.log(event.target.sale.value);
     await CreateNewAdvert({
       name: event.target.name.value,
       sale: sale ? false : true,
@@ -18,7 +17,7 @@ const NewAdvertPage = () => {
       tags: event.target.tags.value,
       photo: event.target.photo.files[0],
     });
-    console.log('sale', sale);
+
     navigate('/');
   };
   const [data, setData] = useState({
