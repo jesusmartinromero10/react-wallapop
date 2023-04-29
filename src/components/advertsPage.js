@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllAdvert } from '../api/services';
+import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 
 import Layout from './layaut/Layout';
@@ -15,10 +16,13 @@ function AdvertsPage() {
   const navigate = useNavigate();
   const [adverts, setAdverts] = useState([]);
   const [advertFilter, setAdvertFilter] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getAllAdvert()
       .then(adverts => setAdverts(adverts))
+      .then(() => setIsLoading(false))
       .catch(error => {
         if (error.response.status === 404) {
           navigate('/404');
@@ -26,8 +30,10 @@ function AdvertsPage() {
       });
   }, [navigate]);
   useEffect(() => {
+    setIsLoading(true);
     getAllAdvert()
       .then(adverts => setAdvertFilter(adverts))
+      .then(() => setIsLoading(false))
       .catch(error => {
         if (error.response.status === 404) {
           navigate('/404');
@@ -86,39 +92,43 @@ function AdvertsPage() {
   return (
     <Layout title="Adverts Page">
       <div>
-        <form>
-          <label>Compra</label>
-          <input
-            type="checkbox"
-            name="buy"
-            checked={checked}
-            onChange={handleChangeFilterSaleCheck}
-            disabled={disabledCheckBuy}
-          />
-          <label>Venta</label>
-          <input
-            type="checkbox"
-            name="sales"
-            checked={checked}
-            onChange={handleChangeFilterSaleCheck}
-            disabled={disabledCheckSale}
-          />
-          <input
-            type="number"
-            pattern="filtro precio"
-            name="price"
-            value={data.sales.value}
-            onChange={handleChangeFilterPriceMin}
-          />
-          <input
-            type="number"
-            pattern="filtro precio"
-            name="price"
-            value={data.sales.value}
-            onChange={handleChangeFilterPriceMax}
-          />
-          <Button onClick={handleClickFilter}>filtrar</Button>
-        </form>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <form>
+            <label>Compra</label>
+            <input
+              type="checkbox"
+              name="buy"
+              checked={checked}
+              onChange={handleChangeFilterSaleCheck}
+              disabled={disabledCheckBuy}
+            />
+            <label>Venta</label>
+            <input
+              type="checkbox"
+              name="sales"
+              checked={checked}
+              onChange={handleChangeFilterSaleCheck}
+              disabled={disabledCheckSale}
+            />
+            <input
+              type="number"
+              pattern="filtro precio"
+              name="price"
+              value={data.sales.value}
+              onChange={handleChangeFilterPriceMin}
+            />
+            <input
+              type="number"
+              pattern="filtro precio"
+              name="price"
+              value={data.sales.value}
+              onChange={handleChangeFilterPriceMax}
+            />
+            <Button onClick={handleClickFilter}>filtrar</Button>
+          </form>
+        )}
         {!!adverts.length ? (
           <>
             <ul>
