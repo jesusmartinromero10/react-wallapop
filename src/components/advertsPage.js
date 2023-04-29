@@ -14,6 +14,7 @@ function AdvertsPage() {
   });
   const navigate = useNavigate();
   const [adverts, setAdverts] = useState([]);
+  const [advertFilter, setAdvertFilter] = useState([]);
 
   useEffect(() => {
     getAllAdvert()
@@ -24,24 +25,36 @@ function AdvertsPage() {
         }
       });
   }, [navigate]);
-
+  useEffect(() => {
+    getAllAdvert()
+      .then(adverts => setAdvertFilter(adverts))
+      .catch(error => {
+        if (error.response.status === 404) {
+          navigate('/404');
+        }
+      });
+  }, [navigate]);
   const [checked, setCheked] = useState(null);
 
   const handleClickFilter = event => {
     event.preventDefault();
+
+    console.log('aaa', advertFilter);
     const state = () => {
       let resultSale = '';
-      if (data.buy) {
-        resultSale = false;
+
+      if (data.buy && data.sales) {
+        return (resultSale = null);
+        // return resultSale
       } else if (data.sales) {
         resultSale = true;
-      } else resultSale = '';
+      } else if (data.buy) {
+        resultSale = false;
+      }
       return resultSale;
     };
-    const e = state();
-    console.log(e);
 
-    let filterPrice = adverts.filter(
+    let filterPrice = advertFilter.filter(
       advert =>
         advert.price >= data.priceMin &&
         advert.price <= data.priceMax &&
@@ -63,6 +76,8 @@ function AdvertsPage() {
   const handleChangeFilterPriceMin = event => {
     setData({ ...data, priceMin: event.target.value });
   };
+  const disabledCheckBuy = data.sales;
+  const disabledCheckSale = data.buy;
 
   return (
     <Layout title="Adverts Page">
@@ -74,6 +89,7 @@ function AdvertsPage() {
             name="buy"
             checked={checked}
             onChange={handleChangeFilterSaleCheck}
+            disabled={disabledCheckBuy}
           />
           <label>Venta</label>
           <input
@@ -81,6 +97,7 @@ function AdvertsPage() {
             name="sales"
             checked={checked}
             onChange={handleChangeFilterSaleCheck}
+            disabled={disabledCheckSale}
           />
           <input
             type="number"
