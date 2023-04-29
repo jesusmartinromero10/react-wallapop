@@ -7,18 +7,24 @@ import Layout from './layaut/Layout';
 const NewAdvertPage = () => {
   const [sale, setSale] = useState('');
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
   const handleSubmitNewPage = async event => {
     event.preventDefault();
+    try {
+      await CreateNewAdvert({
+        name: event.target.name.value,
+        sale: sale ? false : true,
+        price: event.target.price.value,
+        tags: event.target.tags.value,
+        photo: event.target.photo.files[0],
+      });
 
-    await CreateNewAdvert({
-      name: event.target.name.value,
-      sale: sale ? false : true,
-      price: event.target.price.value,
-      tags: event.target.tags.value,
-      photo: event.target.photo.files[0],
-    });
-
-    navigate('/');
+      navigate('/');
+    } catch (error) {
+      error.response?.status === 400
+        ? setError(`Introduzca algun dato para crear el anuncio`)
+        : setError('Compruebe conexion internet');
+    }
   };
   const [data, setData] = useState({
     name: '',
@@ -89,6 +95,7 @@ const NewAdvertPage = () => {
         </select>
         <input type="file" name="photo" onChange={handleChangePhoto} />
         <Button>Crear</Button>
+        <div>{error}</div>
       </form>
     </Layout>
   );
