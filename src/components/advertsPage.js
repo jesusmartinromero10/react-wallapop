@@ -6,12 +6,9 @@ import Button from './button';
 import Layout from './layaut/Layout';
 
 function AdvertsPage() {
-  //const handlerClick = async () => {
-  //await logout();
-  //onLogout();
-  //};
   const [data, setData] = useState({
     sales: '',
+    buy: '',
     priceMin: 0,
     priceMax: Infinity,
   });
@@ -28,24 +25,39 @@ function AdvertsPage() {
       });
   }, [navigate]);
 
+  const [checked, setCheked] = useState(null);
+
   const handleClickFilter = event => {
     event.preventDefault();
+    const state = () => {
+      let resultSale = '';
+      if (data.buy) {
+        resultSale = false;
+      } else if (data.sales) {
+        resultSale = true;
+      } else resultSale = '';
+      return resultSale;
+    };
+    const e = state();
+    console.log(e);
+
     let filterPrice = adverts.filter(
-      advert => advert.price >= data.priceMin && advert.price <= data.priceMax,
+      advert =>
+        advert.price >= data.priceMin &&
+        advert.price <= data.priceMax &&
+        advert.sale === state(),
     );
 
     setAdverts(filterPrice);
-
-    //const res=adverts.price.filter(advert => console.log(advert))
-    //console.log(res)
   };
 
-  const handleChangeFilterSale = event => {
-    setData({ ...data, sales: event.target.value });
+  const handleChangeFilterSaleCheck = event => {
+    event.target.name === 'sales'
+      ? setData({ ...data, sales: event.target.checked })
+      : setData({ ...data, buy: event.target.checked });
   };
   const handleChangeFilterPriceMax = event => {
     setData({ ...data, priceMax: event.target.value });
-    //console.log(adverts[0].price)
   };
 
   const handleChangeFilterPriceMin = event => {
@@ -56,12 +68,19 @@ function AdvertsPage() {
     <Layout title="Adverts Page">
       <div>
         <form>
+          <label>Compra</label>
           <input
-            type="text"
-            placeholder="filtro venta"
+            type="checkbox"
+            name="buy"
+            checked={checked}
+            onChange={handleChangeFilterSaleCheck}
+          />
+          <label>Venta</label>
+          <input
+            type="checkbox"
             name="sales"
-            value={data.sales.value}
-            onChange={handleChangeFilterSale}
+            checked={checked}
+            onChange={handleChangeFilterSaleCheck}
           />
           <input
             type="number"

@@ -5,17 +5,20 @@ import Button from './button';
 import Layout from './layaut/Layout';
 
 const NewAdvertPage = () => {
+  const [sale, setSale] = useState('');
   const navigate = useNavigate();
   const handleSubmitNewPage = async event => {
     event.preventDefault();
 
+    console.log(event.target.sale.value);
     await CreateNewAdvert({
       name: event.target.name.value,
-      sale: event.target.sale.value,
+      sale: sale ? false : true,
       price: event.target.price.value,
       tags: event.target.tags.value,
       photo: event.target.photo.files[0],
     });
+    console.log('sale', sale);
     navigate('/');
   };
   const [data, setData] = useState({
@@ -30,6 +33,7 @@ const NewAdvertPage = () => {
   };
 
   const handleChangeSale = event => {
+    setSale(event.target.value);
     setData({ ...data, sale: event.target.value });
   };
   const handlechangePice = event => {
@@ -65,8 +69,8 @@ const NewAdvertPage = () => {
         <label name="sale">
           Venta:
           <select name="sale" onChange={handleChangeSale}>
-            <option value="True">True</option>
-            <option value="False">False</option>
+            <option value={true}>True</option>
+            <option value={false}>False</option>
           </select>
         </label>
         <label name="price">Precio de venta: </label>
