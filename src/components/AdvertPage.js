@@ -36,7 +36,9 @@ const AdvertPage = () => {
           <li>Precio: {advert.price}</li>
           <li>Venta: {!!advert.sale ? 'Venta' : 'Compra'}</li>
           <li>Tags: {advert.tags}</li>
-          <li>Fotografía: {advert.photo}</li>
+          <li>
+            Fotografía: <img src={advert.photo} alt="fotografía"></img>
+          </li>
         </ul>
       )}
     </Layout>

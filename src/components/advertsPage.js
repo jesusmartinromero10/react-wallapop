@@ -107,7 +107,7 @@ function AdvertsPage() {
                     <br></br>
                     Nombre:{advert.name}
                     <br></br>
-                    Venta:{advert.sale}
+                    Venta:{!!advert.sale ? 'Venta' : 'Compra'}
                     <br></br>
                     Precio:{advert.price}
                     <br></br>
