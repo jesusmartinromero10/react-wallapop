@@ -43,25 +43,30 @@ function AdvertsPage() {
     const state = () => {
       let resultSale = '';
 
-      if (data.buy && data.sales) {
-        return (resultSale = null);
-        // return resultSale
-      } else if (data.sales) {
+      if (data.sales) {
         resultSale = true;
       } else if (data.buy) {
         resultSale = false;
       }
       return resultSale;
     };
+    if (state() === true || state() === false) {
+      let filterPrice = advertFilter.filter(
+        advert =>
+          advert.price >= data.priceMin &&
+          advert.price <= data.priceMax &&
+          advert.sale === state(),
+      );
 
-    let filterPrice = advertFilter.filter(
-      advert =>
-        advert.price >= data.priceMin &&
-        advert.price <= data.priceMax &&
-        advert.sale === state(),
-    );
+      setAdverts(filterPrice);
+    } else {
+      let filterPrice = advertFilter.filter(
+        advert =>
+          advert.price >= data.priceMin && advert.price <= data.priceMax,
+      );
 
-    setAdverts(filterPrice);
+      setAdverts(filterPrice);
+    }
   };
 
   const handleChangeFilterSaleCheck = event => {
