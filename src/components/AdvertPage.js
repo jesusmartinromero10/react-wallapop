@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getAdvert } from '../api/servicesAdvert';
+import { deleteAdvert, getAdvert } from '../api/servicesAdvert';
 import { Spinner } from '../spinner/Spinner';
+import Button from './button';
 import Layout from './layaut/Layout';
 
 const AdvertPage = () => {
@@ -26,20 +27,35 @@ const AdvertPage = () => {
       });
   }, [params.id, navigate]);
 
+  const handleSubmitDelete = event => {
+    deleteAdvert(params.id)
+      .then(navigate('/'))
+      .catch(error => {
+        if (error.response.status === 404) {
+          return navigate('/404');
+        }
+        setError(error);
+      });
+  };
+
   return (
     <Layout title="Advertisement Page">
       {isLoading ? (
         <Spinner />
       ) : (
-        <ul>
-          <li>{`Nombre: ${advert.name}`}</li>
-          <li>Precio: {advert.price}</li>
-          <li>Venta: {!!advert.sale ? 'Venta' : 'Compra'}</li>
-          <li>Tags: {advert.tags}</li>
-          <li>
-            Fotografía: <img src={advert.photo} alt="fotografía"></img>
-          </li>
-        </ul>
+        <div>
+          <ul>
+            <li>{`Nombre: ${advert.name}`}</li>
+            <li>Precio: {advert.price}</li>
+            <li>Venta: {!!advert.sale ? 'Venta' : 'Compra'}</li>
+            <li>Tags: {advert.tags}</li>
+            <li>
+              Fotografía: <img src={advert.photo} alt="fotografía"></img>
+            </li>
+          </ul>
+          <Button onClick={handleSubmitDelete}>Borrar</Button>
+          <div>{error}</div>
+        </div>
       )}
     </Layout>
   );

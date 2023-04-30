@@ -70,6 +70,7 @@ const NewAdvertPage = () => {
           placeholder="Introduce nombre artículo"
           value={data.name.value}
           onChange={handleChangeName}
+          required
         />
         <label name="sale">
           Venta:
@@ -85,9 +86,10 @@ const NewAdvertPage = () => {
           placeholder="precio de venta"
           value={data.price.value}
           onChange={handlechangePice}
+          required
         />
         <label name="tags">Tags</label>
-        <select name="tags" onChange={handleChangeTags}>
+        <select name="tags" onChange={handleChangeTags} required>
           <option value="lifestyle">Lifestyle</option>
           <option value="mobile">Mobile</option>
           <option value="motor">Motor</option>
