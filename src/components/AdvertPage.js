@@ -5,6 +5,7 @@ import { deleteAdvert, getAdvert } from '../api/servicesAdvert';
 import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 import Layout from './layaut/Layout';
+import '../styles/styleAdvertPage.css';
 
 const AdvertPage = () => {
   const [advert, setAdvert] = useState([]);
@@ -43,13 +44,15 @@ const AdvertPage = () => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div>
-          <ul>
-            <li>{`Nombre: ${advert.name}`}</li>
-            <li>Precio: {advert.price}</li>
-            <li>Venta: {!!advert.sale ? 'Venta' : 'Compra'}</li>
-            <li>Tags: {advert.tags}</li>
-            <li>
+        <div className="advertPage">
+          <ul className="ulAdvertPage">
+            <li className="liName">{`Nombre: ${advert.name}`}</li>
+            <li className="liPrice">Precio: {advert.price}</li>
+            <li className="liSale">
+              Venta: {!!advert.sale ? 'Venta' : 'Compra'}
+            </li>
+            <li className="liTag">Tags: {advert.tags}</li>
+            <li className="liPhoto">
               Fotografía: <img src={advert.photo} alt="fotografía"></img>
             </li>
           </ul>

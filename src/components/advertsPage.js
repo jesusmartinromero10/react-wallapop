@@ -124,6 +124,7 @@ function AdvertsPage() {
               name="price"
               value={data.sales.value}
               onChange={handleChangeFilterPriceMin}
+              placeholder="introduzca precio minimo"
             />
             <label className="labelAdvertsPage" name="price">
               Precio Maximo
@@ -135,6 +136,7 @@ function AdvertsPage() {
               name="price"
               value={data.sales.value}
               onChange={handleChangeFilterPriceMax}
+              placeholder="introduzca precio maximo"
             />
             <Button onClick={handleClickFilter}>filtrar</Button>
           </form>
