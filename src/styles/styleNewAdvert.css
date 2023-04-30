@@ -1,0 +1,51 @@
+.form-NewAdvert {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.h1-newAdvert {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.labelNewAdvert {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.inputNameNewAdvert,
+.inputSaleNewAdvert,
+.inputPriceNewAdvert,
+.inputTagsNewAdvert,
+.inputPhotoNewAdvert {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.inputSaleNewAdvert {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 30px;
+}
+
+.inputSaleNewAdvert:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+.inputPhotoNewAdvert {
+  padding: 0;
+  color: gray;
+}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
+import '../styles/styleNewAdvert.css';
 
 const NewAdvertPage = () => {
   const [sale, setSale] = useState('');
@@ -56,15 +57,16 @@ const NewAdvertPage = () => {
   return (
     <Layout title="Wallapop">
       <form className="formNewAdvert" onSubmit={handleSubmitNewPage}>
-        <h1>Create New Advert Page</h1>
+        <h1 className="h1-newAdvert">Create New Advert Page</h1>
         <label
-          className="labelNombreNewAdvert"
+          className="labelNewAdvert"
           name="name"
           onChange={handleChangeName}
         >
-          Nombre:
+          Nombre
         </label>
         <input
+          className="inputNameNewAdvert"
           type="text"
           name="name"
           placeholder="Introduce nombre artículo"
@@ -72,30 +74,52 @@ const NewAdvertPage = () => {
           onChange={handleChangeName}
           required
         />
-        <label name="sale">
-          Venta:
-          <select name="sale" onChange={handleChangeSale}>
+        <label name="sale" className="labelNewAdvert">
+          Venta
+          <select
+            name="sale"
+            onChange={handleChangeSale}
+            className="inputSaleNewAdvert"
+          >
             <option value={true}>True</option>
             <option value={false}>False</option>
           </select>
         </label>
-        <label name="price">Precio de venta: </label>
+        <label name="price" className="labelNewAdvert">
+          Precio de venta:{' '}
+        </label>
         <input
           type="number"
+          className="inputPriceNewAdvert"
           name="price"
           placeholder="precio de venta"
           value={data.price.value}
           onChange={handlechangePice}
           required
         />
-        <label name="tags">Tags</label>
-        <select name="tags" onChange={handleChangeTags} required>
+        <label name="tags" className="labelNewAdvert">
+          Tags
+        </label>
+        <select
+          name="tags"
+          onChange={handleChangeTags}
+          required
+          className="inputTagsNewAdvert"
+        >
           <option value="lifestyle">Lifestyle</option>
           <option value="mobile">Mobile</option>
           <option value="motor">Motor</option>
           <option value="work">Work</option>
         </select>
-        <input type="file" name="photo" onChange={handleChangePhoto} />
+        <label name="photo" className="labelNewAdvert">
+          Elige una fotografía
+        </label>
+        <input
+          type="file"
+          name="photo"
+          onChange={handleChangePhoto}
+          className="inputPhotoNewAdvert"
+        />
         <Button>Crear</Button>
         <div>{error}</div>
       </form>

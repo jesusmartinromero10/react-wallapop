@@ -95,9 +95,10 @@ function AdvertsPage() {
         {isLoading ? (
           <Spinner />
         ) : (
-          <form>
+          <form className="formAdversPage">
             <label>Compra</label>
             <input
+              className="inputBuyAdvertsPage"
               type="checkbox"
               name="buy"
               checked={checked}
@@ -106,6 +107,7 @@ function AdvertsPage() {
             />
             <label>Venta</label>
             <input
+              className="inputSaleAdvertsPage"
               type="checkbox"
               name="sales"
               checked={checked}
