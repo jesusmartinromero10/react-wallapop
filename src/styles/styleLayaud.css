@@ -1,0 +1,36 @@
+/* Estilos generales */
+.layaud {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Estilos para el main */
+.mainLayaud {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.h2-layaud {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el footer */
+.footerLayaud {
+  background-color: #eee;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Estilos para el texto del footer */
+.footerLayaud p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+}

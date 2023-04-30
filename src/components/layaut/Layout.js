@@ -1,14 +1,15 @@
 import Header from './Header';
+import '../../styles/styleLayaud.css';
 
 const Layout = ({ title, children }) => {
   return (
-    <div>
+    <div className="layaud">
       <Header />
-      <main>
-        <h2>{title}</h2>
+      <main className="mainLayaud">
+        <h2 className="h2-layaud">{title}</h2>
         {children}
       </main>
-      <footer>Wallapop R 2023</footer>
+      <footer className="footerLayaud">Wallapop R 2023</footer>
     </div>
   );
 };
