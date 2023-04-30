@@ -81,8 +81,8 @@ const NewAdvertPage = () => {
             onChange={handleChangeSale}
             className="inputSaleNewAdvert"
           >
-            <option value={true}>True</option>
-            <option value={false}>False</option>
+            <option value={true}>Vender</option>
+            <option value={false}>Comprar</option>
           </select>
         </label>
         <label name="price" className="labelNewAdvert">
