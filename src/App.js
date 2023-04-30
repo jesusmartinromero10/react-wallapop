@@ -32,8 +32,8 @@ function App({ isInitiallyLogged }) {
             path="/login"
             element={
               <LoginPage
-                placeholderEmail="Writte your email"
-                placeholderPassword="Writte your password"
+                placeholderEmail="Write your email"
+                placeholderPassword="Write your password"
                 type="submit"
               >
                 Login

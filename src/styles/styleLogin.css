@@ -1,0 +1,85 @@
+.body-login {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.container-login {
+  margin: 50px auto;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: black;
+}
+
+.h1-login {
+  margin: 0;
+  padding: 0;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.form-login label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-login .input-login-email,
+.form-login .input-login-password {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-login label .input-login-check[type='checkbox'] {
+  display: none;
+}
+
+.formform label .input-loging-check[type='checkbox'] + span {
+  display: inline-block;
+  padding-left: 25px;
+  position: relative;
+  color: #777;
+}
+
+.form-login label .input-login-check[type='checkbox'] + span:before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #777;
+  border-radius: 5px;
+}
+
+.form-login label .input-login-check[type='checkbox']:checked + span:before {
+  content: '✓';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #1e90ff;
+  border-radius: 5px;
+  color: #1e90ff;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+}
+span {
+  color: #777;
+  font-size: small;
+  font-weight: normal;
+}

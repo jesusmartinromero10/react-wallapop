@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../api/servicesLogin';
 import { AuthContext } from '../context/context';
 import Button from './button';
+import '../styles/styleLogin.css';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
   const { onLogin } = useContext(AuthContext);
@@ -49,10 +50,11 @@ function LoginPage({ children, placeholderEmail, placeholderPassword }) {
     setCheked(event.target.checked);
   };
   return (
-    <div>
-      <form className="loginPage" onSubmit={handleSubmit}>
-        <h1>Log in Page Advertisement</h1>
+    <div className="container-login">
+      <form className="form-login" onSubmit={handleSubmit}>
+        <h1 className="h1-login">Log in Page Advertisement</h1>
         <input
+          className="input-login-email"
           type="email"
           name="email"
           placeholder={placeholderEmail}
@@ -60,6 +62,7 @@ function LoginPage({ children, placeholderEmail, placeholderPassword }) {
           value={credential.email} //con esto controlamos lo que se muestra en los input en el estado
         />
         <input
+          className="input-login-password"
           type="password"
           name="password"
           placeholder={placeholderPassword}
@@ -69,8 +72,13 @@ function LoginPage({ children, placeholderEmail, placeholderPassword }) {
         <Button type="submit" disabled={disableButton}>
           {children}
         </Button>
-        <input type="checkbox" checked={checked} onChange={handleChecked} />
-        <label>Marca para guardar credenciales</label>
+        <input
+          className="input-login-check"
+          type="checkbox"
+          checked={checked}
+          onChange={handleChecked}
+        />
+        <span>Marca para guardar credenciales</span>
       </form>
       {error &&
         (error.response ? (
