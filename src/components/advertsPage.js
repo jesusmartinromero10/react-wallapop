@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAllAdvert } from '../api/services';
 import { Spinner } from '../spinner/Spinner';
 import Button from './button';
-
+import '../styles/styleAdvertsPage.css';
 import Layout from './layaut/Layout';
 
 function AdvertsPage() {
@@ -96,7 +96,7 @@ function AdvertsPage() {
           <Spinner />
         ) : (
           <form className="formAdversPage">
-            <label>Compra</label>
+            <label className="labelAdvertsPage">Compra</label>
             <input
               className="inputBuyAdvertsPage"
               type="checkbox"
@@ -105,7 +105,7 @@ function AdvertsPage() {
               onChange={handleChangeFilterSaleCheck}
               disabled={disabledCheckBuy}
             />
-            <label>Venta</label>
+            <label className="labelAdvertsPage">Venta</label>
             <input
               className="inputSaleAdvertsPage"
               type="checkbox"
@@ -114,14 +114,22 @@ function AdvertsPage() {
               onChange={handleChangeFilterSaleCheck}
               disabled={disabledCheckSale}
             />
+            <label className="labelAdvertsPage" name="price">
+              Precio Minimo
+            </label>
             <input
+              className="inputPriceMinAdvertsPage"
               type="number"
               pattern="filtro precio"
               name="price"
               value={data.sales.value}
               onChange={handleChangeFilterPriceMin}
             />
+            <label className="labelAdvertsPage" name="price">
+              Precio Maximo
+            </label>
             <input
+              className="inputPriceMaxAdvertsPage"
               type="number"
               pattern="filtro precio"
               name="price"
@@ -133,9 +141,9 @@ function AdvertsPage() {
         )}
         {!!adverts.length ? (
           <>
-            <ul>
+            <ul className="ulAdvertsPage">
               {adverts.map(advert => (
-                <li key={advert.id}>
+                <li key={advert.id} className="liAdvertsPage">
                   <Link to={`/adverts/${advert.id}`}>
                     <br></br>
                     Nombre:{advert.name}
@@ -154,7 +162,9 @@ function AdvertsPage() {
             </ul>
           </>
         ) : (
-          <p>No hay mensajes publicados, crea uno por favor</p>
+          <p className="pAdvertsPage">
+            No hay mensajes publicados, crea uno por favor
+          </p>
         )}
       </div>
     </Layout>
