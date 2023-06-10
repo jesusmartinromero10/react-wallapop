@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { setAuthorizationHeader } from './api/client';
+import configureStore from './components/redux';
 import storage from './utils/storage';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -10,6 +11,8 @@ const accessToken = storage.get('auth'); //leemos al inicir o refrescar la pagin
 if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
+
+const store = configureStore(); //creamos el store y ya disponemos de dispatch, getState...
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
