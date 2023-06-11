@@ -44,9 +44,9 @@ export function adverts(state = defoultState.adverts, action) {
   }
 }
 
-export default function combinedReducer(state = defoultState, action) {
-  return {
-    auth: auth(state.auth, state),
-    adverts: adverts(state.adverts, action),
-  };
-}
+// export default function combinedReducer(state = defoultState, action) {
+//   return {
+//     auth: auth(state.auth, state),
+//     adverts: adverts(state.adverts, action),
+//   };
+// }
