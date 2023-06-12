@@ -4,7 +4,7 @@ import { login } from '../api/servicesLogin';
 import Button from './button';
 import '../styles/styleLogin.css';
 import { useDispatch } from 'react-redux';
-import { authLogin, authLogout } from './redux/actions';
+import { authLogin } from './redux/actions';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
   const dispatch = useDispatch();

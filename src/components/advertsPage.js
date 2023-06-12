@@ -5,8 +5,11 @@ import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 import '../styles/styleAdvertsPage.css';
 import Layout from './layaut/Layout';
+import { getAdverts } from './redux/selectors';
+import { connect } from 'react-redux';
+import { advertsLoaded } from './redux/actions';
 
-function AdvertsPage() {
+function AdvertsPage({ adverts, onAdvertsLoaded }) {
   const [data, setData] = useState({
     sales: '',
     buy: '',
@@ -14,21 +17,21 @@ function AdvertsPage() {
     priceMax: Infinity,
   });
   const navigate = useNavigate();
-  const [adverts, setAdverts] = useState([]);
+
   const [advertFilter, setAdvertFilter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
     getAllAdvert()
-      .then(adverts => setAdverts(adverts))
+      .then(adverts => onAdvertsLoaded(adverts))
       .then(() => setIsLoading(false))
       .catch(error => {
         if (error.response.status === 404) {
           navigate('/404');
         }
       });
-  }, [navigate]);
+  }, [navigate, onAdvertsLoaded]);
   useEffect(() => {
     setIsLoading(true);
     getAllAdvert()
@@ -42,37 +45,37 @@ function AdvertsPage() {
   }, [navigate]);
   const [checked, setCheked] = useState(null);
 
-  const handleClickFilter = event => {
-    event.preventDefault();
+  // const handleClickFilter = event => {
+  //   event.preventDefault();
 
-    const state = () => {
-      let resultSale = '';
+  //   const state = () => {
+  //     let resultSale = '';
 
-      if (data.sales) {
-        resultSale = true;
-      } else if (data.buy) {
-        resultSale = false;
-      }
-      return resultSale;
-    };
-    if (state() === true || state() === false) {
-      let filterPrice = advertFilter.filter(
-        advert =>
-          advert.price >= data.priceMin &&
-          advert.price <= data.priceMax &&
-          advert.sale === state(),
-      );
+  //     if (data.sales) {
+  //       resultSale = true;
+  //     } else if (data.buy) {
+  //       resultSale = false;
+  //     }
+  //     return resultSale;
+  //   };
+  //   if (state() === true || state() === false) {
+  //     let filterPrice = advertFilter.filter(
+  //       advert =>
+  //         advert.price >= data.priceMin &&
+  //         advert.price <= data.priceMax &&
+  //         advert.sale === state(),
+  //     );
 
-      setAdverts(filterPrice);
-    } else {
-      let filterPrice = advertFilter.filter(
-        advert =>
-          advert.price >= data.priceMin && advert.price <= data.priceMax,
-      );
+  //     setAdverts(filterPrice);
+  //   } else {
+  //     let filterPrice = advertFilter.filter(
+  //       advert =>
+  //         advert.price >= data.priceMin && advert.price <= data.priceMax,
+  //     );
 
-      setAdverts(filterPrice);
-    }
-  };
+  //     setAdverts(filterPrice);
+  //   }
+  // };
 
   const handleChangeFilterSaleCheck = event => {
     event.target.name === 'sales'
@@ -173,4 +176,10 @@ function AdvertsPage() {
   );
 }
 
-export default AdvertsPage;
+const mapStateToProps = state => ({
+  adverts: getAdverts(state),
+});
+const mapDispatchToProps = dispatch => ({
+  onAdvertsLoaded: adverts => dispatch(advertsLoaded(adverts)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AdvertsPage);

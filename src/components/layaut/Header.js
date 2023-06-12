@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import Button from '../button';
 import '../../styles/header.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { authLogin, authLogout } from '../redux/actions';
+import { authLogout } from '../redux/actions';
 import { getIsLogged } from '../redux/selectors';
 
 const Header = () => {
