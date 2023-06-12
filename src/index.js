@@ -5,8 +5,6 @@ import App from './App';
 import { setAuthorizationHeader } from './api/client';
 import configureStore from './components/redux';
 import storage from './utils/storage';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import Root from './Root';
 
 const accessToken = storage.get('auth'); //leemos al inicir o refrescar la pagina si hay token o no en el local storage
@@ -20,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Root store={store}>
-      <App isInitiallyLogged={!!accessToken} />
+      <App />
     </Root>
   </React.StrictMode>,
 );

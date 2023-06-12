@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/context';
+import { getIsLogged } from './redux/selectors';
 
 const RequireAuth = ({ children }) => {
-  const { isLogged } = useContext(AuthContext);
+  const isLogged = useSelector(getIsLogged);
   const location = useLocation();
   if (!isLogged) {
     return <Navigate to="/login" state={{ from: location }} />;

@@ -1,17 +1,19 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../api/servicesLogin';
-import { AuthContext } from '../context/context';
 import Button from './button';
 import '../styles/styleLogin.css';
+import { useDispatch } from 'react-redux';
+import { authLogin, authLogout } from './redux/actions';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
-  const { onLogin } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const onLogin = () => dispatch(authLogin()); //despachamos la accion de loguearse
   const handleSubmit = async event => {
     event.preventDefault();
     setIsLoading(true); //saber si esta cargando la llamada
