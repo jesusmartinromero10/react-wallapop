@@ -56,17 +56,19 @@ export function adverts(state = defoultState.adverts, action) {
 }
 
 export function ui(state = defoultState.ui, action) {
-  switch (action.type) {
-    case AUTH_LOGIN_REQUEST:
-      return { isLoading: true, error: null };
-    case AUTH_LOGIN_FAILURE:
-      return { isLoading: false, error: action.payload };
-    case AUTH_LOGIN_SUCCESS:
-      return { isLoading: false, error: null };
-
-    default:
-      return state;
+  if (action.error) {
+    return { isLoading: false, error: action.payload };
   }
+
+  if (/_REQUEST$/.test(action.type)) {
+    //todas las acciones que acaben en request
+    return { isLoading: true, error: null };
+  }
+
+  if (/_SUCCESS$/.test(action.type)) {
+    return { isLoading: false, error: null };
+  }
+  return state;
 }
 
 // export default function combinedReducer(state = defoultState, action) {
