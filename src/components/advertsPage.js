@@ -141,7 +141,8 @@ function AdvertsPage({ adverts, onAdvertsLoaded }) {
               onChange={handleChangeFilterPriceMax}
               placeholder="introduzca precio maximo"
             />
-            <Button onClick={handleClickFilter}>filtrar</Button>
+            <Button>filtrar</Button>
+            {/* <Button onClick={handleClickFilter}>filtrar</Button> */}
           </form>
         )}
         {!!adverts.length ? (
