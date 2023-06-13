@@ -3,29 +3,33 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { login } from '../api/servicesLogin';
 import Button from './button';
 import '../styles/styleLogin.css';
-import { useDispatch } from 'react-redux';
-import { authLogin } from './redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  authLoginFailure,
+  authLoginRequest,
+  authLoginSuccess,
+} from './redux/actions';
+import { getUi } from './redux/selectors';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { isLoading, error } = useSelector(getUi);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState('');
 
-  const onLogin = () => dispatch(authLogin()); //despachamos la accion de loguearse
+  const onLogin = () => dispatch(authLoginSuccess()); //despachamos la accion de loguearse
   const handleSubmit = async event => {
     event.preventDefault();
-    setIsLoading(true); //saber si esta cargando la llamada
+    dispatch(authLoginRequest()); //saber si esta cargando la llamada
     try {
       await login(credential, checked);
     } catch (error) {
-      setIsLoading(false);
-      setError(error);
+      dispatch(authLoginFailure(error));
 
       return;
     }
-    setIsLoading(false);
     //leguearse
     onLogin();
     //redirect to pathname

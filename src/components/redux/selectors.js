@@ -6,3 +6,5 @@ export const getAdverts = state => {
 
 export const getReduxAdvert = (state, id) =>
   getAdverts(state).find(advert => advert.id === id);
+
+export const getUi = state => state.ui;

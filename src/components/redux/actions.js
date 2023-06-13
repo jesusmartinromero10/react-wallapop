@@ -5,13 +5,25 @@ import {
   ADD_ADVERTS_REQUEST,
   ADD_ADVERTS_SUCCESS,
   ADVERT_LOADED,
-  AUTH_LOGIN,
+  AUTH_LOGIN_FAILURE,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
 } from './types';
 
-export const authLogin = () => ({
+export const authLoginRequest = () => ({
+  type: AUTH_LOGIN_REQUEST,
+});
+
+export const authLoginSuccess = () => ({
   //crea la accion de type authlogin para saber si esta loguedo
-  type: AUTH_LOGIN,
+  type: AUTH_LOGIN_SUCCESS,
+});
+
+export const authLoginFailure = error => ({
+  type: AUTH_LOGIN_FAILURE,
+  error: true,
+  payload: error,
 });
 
 export const authLogout = () => ({
