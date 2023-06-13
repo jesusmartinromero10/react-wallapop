@@ -4,12 +4,16 @@ import '../../styles/header.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { authLogout } from '../redux/actions';
 import { getIsLogged } from '../redux/selectors';
+import { logout } from '../../api/servicesLogin';
 
 const Header = () => {
   const isLogged = useSelector(getIsLogged);
   const dispatch = useDispatch();
 
-  const onLogout = () => dispatch(authLogout());
+  const handl = () => {
+    dispatch(authLogout());
+    logout();
+  };
 
   return (
     <header className="header">
@@ -20,7 +24,7 @@ const Header = () => {
           Read Advertisement
         </NavLink>
         {isLogged ? (
-          <Button onClick={onLogout}>Logout</Button>
+          <Button onClick={handl}>Logout</Button>
         ) : (
           <Button as={Link} to="/login">
             Login
