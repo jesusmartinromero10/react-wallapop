@@ -1,5 +1,6 @@
 //creamos las action creation
 
+import { login } from '../../api/servicesLogin';
 import {
   ADD_ADVERTS_FAILURE,
   ADD_ADVERTS_REQUEST,
@@ -63,3 +64,17 @@ export const addAdvertsFailure = error => ({
   error: true,
   payload: error,
 });
+
+export const authlogin = (credential, checked) =>
+  async function (dispatch) {
+    dispatch(authLoginRequest()); //saber si esta cargando la llamada
+    try {
+      await login(credential, checked);
+    } catch (error) {
+      dispatch(authLoginFailure(error));
+
+      return;
+    }
+    //leguearse
+    dispatch(authLoginSuccess());
+  };

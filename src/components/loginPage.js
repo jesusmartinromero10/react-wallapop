@@ -4,11 +4,7 @@ import { login } from '../api/servicesLogin';
 import Button from './button';
 import '../styles/styleLogin.css';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  authLoginFailure,
-  authLoginRequest,
-  authLoginSuccess,
-} from './redux/actions';
+import { authlogin } from './redux/actions';
 import { getUi } from './redux/selectors';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
@@ -19,19 +15,11 @@ function LoginPage({ children, placeholderEmail, placeholderPassword }) {
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState('');
 
-  const onLogin = () => dispatch(authLoginSuccess()); //despachamos la accion de loguearse
+  //const onLogin = () => dispatch(authLoginSuccess()); //despachamos la accion de loguearse
   const handleSubmit = async event => {
     event.preventDefault();
-    dispatch(authLoginRequest()); //saber si esta cargando la llamada
-    try {
-      await login(credential, checked);
-    } catch (error) {
-      dispatch(authLoginFailure(error));
+    await dispatch(authlogin(credential, checked));
 
-      return;
-    }
-    //leguearse
-    onLogin();
     //redirect to pathname
     const to = location.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
     navigate(to); //con las interrogaciones es por si viene esos estados vacios para que no de error pues si vienen vacio vas a /
