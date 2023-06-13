@@ -10,7 +10,7 @@ const Header = () => {
   const isLogged = useSelector(getIsLogged);
   const dispatch = useDispatch();
 
-  const handl = () => {
+  const handlerLogout = () => {
     dispatch(authLogout());
     logout();
   };
@@ -24,7 +24,7 @@ const Header = () => {
           Read Advertisement
         </NavLink>
         {isLogged ? (
-          <Button onClick={handl}>Logout</Button>
+          <Button onClick={handlerLogout}>Logout</Button>
         ) : (
           <Button as={Link} to="/login">
             Login

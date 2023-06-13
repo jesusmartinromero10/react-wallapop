@@ -6,14 +6,17 @@ import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 import Layout from './layaut/Layout';
 import '../styles/styleAdvertPage.css';
+import { useSelector } from 'react-redux';
+import { getReduxAdvert } from './redux/selectors';
 
 const AdvertPage = () => {
-  const [advert, setAdvert] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
   const params = useParams();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const advert = useSelector(state => getReduxAdvert(state, params.id));
+  console.log('advert', advert);
+  const [_advert, setAdvert] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
