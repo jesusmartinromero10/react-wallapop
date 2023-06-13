@@ -6,10 +6,10 @@ import Button from './button';
 import '../styles/styleAdvertsPage.css';
 import Layout from './layaut/Layout';
 import { getAdverts } from './redux/selectors';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { advertsLoaded } from './redux/actions';
 
-function AdvertsPage({ adverts, onAdvertsLoaded }) {
+function AdvertsPage() {
   const [data, setData] = useState({
     sales: '',
     buy: '',
@@ -17,6 +17,8 @@ function AdvertsPage({ adverts, onAdvertsLoaded }) {
     priceMax: Infinity,
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const advert = useSelector(getAdverts);
 
   const [advertFilter, setAdvertFilter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,14 +26,14 @@ function AdvertsPage({ adverts, onAdvertsLoaded }) {
   useEffect(() => {
     setIsLoading(true);
     getAllAdvert()
-      .then(adverts => onAdvertsLoaded(adverts))
+      .then(advert => dispatch(advertsLoaded(advert)))
       .then(() => setIsLoading(false))
       .catch(error => {
         if (error.response.status === 404) {
           navigate('/404');
         }
       });
-  }, [navigate, onAdvertsLoaded]);
+  }, [navigate, dispatch]);
   useEffect(() => {
     setIsLoading(true);
     getAllAdvert()
@@ -145,10 +147,10 @@ function AdvertsPage({ adverts, onAdvertsLoaded }) {
             {/* <Button onClick={handleClickFilter}>filtrar</Button> */}
           </form>
         )}
-        {!!adverts.length ? (
+        {!!advert.length ? (
           <>
             <ul className="ulAdvertsPage">
-              {adverts.map(advert => (
+              {advert.map(advert => (
                 <li key={advert.id} className="liAdvertsPage">
                   <Link to={`/adverts/${advert.id}`}>
                     <br></br>
@@ -177,10 +179,4 @@ function AdvertsPage({ adverts, onAdvertsLoaded }) {
   );
 }
 
-const mapStateToProps = state => ({
-  adverts: getAdverts(state),
-});
-const mapDispatchToProps = dispatch => ({
-  onAdvertsLoaded: adverts => dispatch(advertsLoaded(adverts)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(AdvertsPage);
+export default AdvertsPage;
