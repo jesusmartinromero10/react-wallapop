@@ -1,11 +1,14 @@
 //creamos las action creation
 
+import { getAllAdvert } from '../../api/services';
 import { login } from '../../api/servicesLogin';
 import {
   ADD_ADVERTS_FAILURE,
   ADD_ADVERTS_REQUEST,
   ADD_ADVERTS_SUCCESS,
-  ADVERT_LOADED,
+  ADVERT_LOADED_FAILURE,
+  ADVERT_LOADED_REQUEST,
+  ADVERT_LOADED_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -32,11 +35,33 @@ export const authLogout = () => ({
   type: AUTH_LOGOUT,
 });
 
-export const advertsLoaded = adverts => ({
+export const advertsLoadedRequest = () => ({
+  //crea la accion de pedida de anuncios
+  type: ADVERT_LOADED_REQUEST,
+});
+
+export const advertsLoadedSuccess = adverts => ({
   //crea la accion de la carga de anuncios
-  type: ADVERT_LOADED,
+  type: ADVERT_LOADED_SUCCESS,
   payload: adverts, //le pasamos la lista de anuncios para que los pueda leer
 });
+
+export const advertsLoadedFailure = error => ({
+  //crea la accion de error de la carga de anuncios
+  type: ADVERT_LOADED_FAILURE,
+  error: true,
+  payload: error, //le pasamos el error para que los pueda leer
+});
+
+export const advertsLoaded = () => async (dispatch, getState) => {
+  dispatch(advertsLoadedRequest());
+  try {
+    const adverts = await getAllAdvert();
+    dispatch(advertsLoadedSuccess(adverts));
+  } catch (error) {
+    dispatch(advertsLoadedFailure(error));
+  }
+};
 
 export const getApiAdverts =
   () =>

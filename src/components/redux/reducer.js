@@ -1,8 +1,5 @@
 import {
-  ADVERT_LOADED,
-  AUTH_LOGIN,
-  AUTH_LOGIN_FAILURE,
-  AUTH_LOGIN_REQUEST,
+  ADVERT_LOADED_SUCCESS,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
 } from './types';
@@ -48,7 +45,7 @@ export function auth(state = defoultState.auth, action) {
 
 export function adverts(state = defoultState.adverts, action) {
   switch (action.type) {
-    case ADVERT_LOADED:
+    case ADVERT_LOADED_SUCCESS:
       return action.payload; //cogemos el payload de la accion que nos llega que seria la lista de anuncios
     default:
       return state;

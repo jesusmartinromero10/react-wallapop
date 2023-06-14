@@ -5,7 +5,7 @@ import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 import '../styles/styleAdvertsPage.css';
 import Layout from './layaut/Layout';
-import { getAdverts } from './redux/selectors';
+import { getAdverts, getUi } from './redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { advertsLoaded } from './redux/actions';
 
@@ -19,21 +19,14 @@ function AdvertsPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const advert = useSelector(getAdverts);
+  const { isLoading } = useSelector(getUi);
 
   const [advertFilter, setAdvertFilter] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [_isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    getAllAdvert()
-      .then(advert => dispatch(advertsLoaded(advert)))
-      .then(() => setIsLoading(false))
-      .catch(error => {
-        if (error.response.status === 404) {
-          navigate('/404');
-        }
-      });
-  }, [navigate, dispatch]);
+    dispatch(advertsLoaded());
+  }, [dispatch]);
   useEffect(() => {
     setIsLoading(true);
     getAllAdvert()

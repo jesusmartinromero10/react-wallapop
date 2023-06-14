@@ -4,7 +4,10 @@ export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
 
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
-export const ADVERT_LOADED = 'ADVERT_LOADED'; //accion leer anuncios
+export const ADVERT_LOADED_REQUEST = 'ADVERT_LOADED_REQUEST'; //accion leer anuncios
+export const ADVERT_LOADED_SUCCESS = 'ADVERT_LOADED_SUCCESS';
+export const ADVERT_LOADED_FAILURE = 'ADVERT_LOADED_FAILURE';
+
 export const ADVERT_CREATED = 'ADVERT_CREATED'; //creacion de anuncio
 
 export const ADD_TAGS_REQUEST = 'ADD_TAGS_REQUEST';
