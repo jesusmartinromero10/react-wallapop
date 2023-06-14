@@ -1,7 +1,6 @@
 //creamos las action creation
 
-import { getAllAdvert } from '../../api/services';
-import { login } from '../../api/servicesLogin';
+import { areAdvertsLoaded } from './selectors';
 import {
   ADD_ADVERTS_FAILURE,
   ADD_ADVERTS_REQUEST,
@@ -53,15 +52,20 @@ export const advertsLoadedFailure = error => ({
   payload: error, //le pasamos el error para que los pueda leer
 });
 
-export const advertsLoaded = () => async (dispatch, getState) => {
-  dispatch(advertsLoadedRequest());
-  try {
-    const adverts = await getAllAdvert();
-    dispatch(advertsLoadedSuccess(adverts));
-  } catch (error) {
-    dispatch(advertsLoadedFailure(error));
-  }
-};
+export const advertsLoaded =
+  () =>
+  async (dispatch, getState, { adverts: advertsService }) => {
+    if (areAdvertsLoaded(getState())) {
+      return;
+    }
+    dispatch(advertsLoadedRequest());
+    try {
+      const adverts = await advertsService.getAllAdvert();
+      dispatch(advertsLoadedSuccess(adverts));
+    } catch (error) {
+      dispatch(advertsLoadedFailure(error));
+    }
+  };
 
 export const getApiAdverts =
   () =>
@@ -91,10 +95,10 @@ export const addAdvertsFailure = error => ({
 });
 
 export const authlogin = (credential, checked) =>
-  async function (dispatch) {
+  async function (dispatch, _getState, { auth }) {
     dispatch(authLoginRequest()); //saber si esta cargando la llamada
     try {
-      await login(credential, checked);
+      await auth.login(credential, checked);
     } catch (error) {
       dispatch(authLoginFailure(error));
 

@@ -6,6 +6,8 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import * as reducers from './reducer';
 import * as actionCreators from './actions';
 import thunk from 'redux-thunk';
+import * as auth from '../../api/servicesLogin';
+import * as adverts from '../../api/servicesAdvert';
 
 // const reducer = combineReducers({
 //   auth,
@@ -19,7 +21,7 @@ const composeEnhancers = composeWithDevTools({
   actionCreators,
 });
 
-const middleware = [thunk];
+const middleware = [thunk.withExtraArgument({ auth, adverts })];
 
 export default function configureStore(preloadedState) {
   //para importar desde fuera y decidir desde fuera como crear el store como nos covenga mas

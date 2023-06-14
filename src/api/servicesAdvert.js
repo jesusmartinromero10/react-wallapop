@@ -11,3 +11,7 @@ export const deleteAdvert = async id => {
   const url = `${advertURL}/${id}`;
   return await client.delete(url);
 };
+
+export const getAllAdvert = () => {
+  return client.get(advertURL); //hace la llamada para traer los anuncios
+};

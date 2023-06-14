@@ -7,7 +7,10 @@ import {
 //creamos el estado que va a tener por defecto
 export const defoultState = {
   auth: false,
-  adverts: [],
+  adverts: {
+    areLoaded: false,
+    data: [],
+  },
   ui: {
     isLoading: false,
     error: null,
@@ -46,7 +49,7 @@ export function auth(state = defoultState.auth, action) {
 export function adverts(state = defoultState.adverts, action) {
   switch (action.type) {
     case ADVERT_LOADED_SUCCESS:
-      return action.payload; //cogemos el payload de la accion que nos llega que seria la lista de anuncios
+      return { areLoaded: true, data: action.payload }; //cogemos el payload de la accion que nos llega que seria la lista de anuncios
     default:
       return state;
   }
