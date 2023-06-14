@@ -6,21 +6,25 @@ import { Spinner } from '../spinner/Spinner';
 import Button from './button';
 import Layout from './layaut/Layout';
 import '../styles/styleAdvertPage.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getReduxAdvert } from './redux/selectors';
+import { advertLoad } from './redux/actions';
 
 const AdvertPage = () => {
+  const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const advert = useSelector(state => getReduxAdvert(state, params.id));
-  console.log('advert', advert);
+  const advert = useSelector(getReduxAdvert(params.id));
+
   const [_advert, setAdvert] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-    getAdvert(params.id)
+    //setIsLoading(true);
+    //dispatch(advertLoad(params.id));
+
+    dispatch(advertLoad(params.id))
       .then(advert => setAdvert(advert))
       .then(() => setIsLoading(false))
       .catch(error => {
@@ -29,7 +33,7 @@ const AdvertPage = () => {
         }
         setError(error);
       });
-  }, [params.id, navigate]);
+  }, [params.id, navigate, dispatch]);
 
   const handleSubmitDelete = event => {
     deleteAdvert(params.id)

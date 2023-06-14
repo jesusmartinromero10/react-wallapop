@@ -1,6 +1,7 @@
 //creamos las action creation
 
-import { areAdvertsLoaded } from './selectors';
+import { getAdvert } from '../../api/servicesAdvert';
+import { areAdvertsLoaded, getReduxAdvert } from './selectors';
 import {
   ADD_ADVERTS_FAILURE,
   ADD_ADVERTS_REQUEST,
@@ -8,6 +9,9 @@ import {
   ADVERT_LOADED_FAILURE,
   ADVERT_LOADED_REQUEST,
   ADVERT_LOADED_SUCCESS,
+  ADVER_LOADED_FAILURE,
+  ADVER_LOADED_REQUEST,
+  ADVER_LOADED_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
@@ -64,6 +68,41 @@ export const advertsLoaded =
       dispatch(advertsLoadedSuccess(adverts));
     } catch (error) {
       dispatch(advertsLoadedFailure(error));
+    }
+  };
+
+export const advertLoadedRequest = () => ({
+  //crea la accion de pedida de anuncios
+  type: ADVER_LOADED_REQUEST,
+});
+
+export const advertLoadedSuccess = advert => ({
+  //crea la accion de la carga de anuncio
+  type: ADVER_LOADED_SUCCESS,
+  payload: advert, //le pasamos el anuncio para que los pueda leer
+});
+
+export const advertLoadedFailure = error => ({
+  //crea la accion de error de la carga de anuncios
+  type: ADVER_LOADED_FAILURE,
+  error: true,
+  payload: error, //le pasamos el error para que los pueda leer
+});
+
+export const advertLoad =
+  id =>
+  async (dispatch, getState, { adverts: advertsService }) => {
+    const isLoaded = getReduxAdvert(id)(getState());
+    if (isLoaded) {
+      return;
+    }
+    dispatch(advertLoadedRequest());
+    try {
+      const advert = await advertsService.getAdvert(id);
+      dispatch(advertLoadedSuccess(advert));
+    } catch (error) {
+      dispatch(advertLoadedFailure(error));
+      throw error;
     }
   };
 

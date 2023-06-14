@@ -8,6 +8,10 @@ export const ADVERT_LOADED_REQUEST = 'ADVERT_LOADED_REQUEST'; //accion leer anun
 export const ADVERT_LOADED_SUCCESS = 'ADVERT_LOADED_SUCCESS';
 export const ADVERT_LOADED_FAILURE = 'ADVERT_LOADED_FAILURE';
 
+export const ADVER_LOADED_REQUEST = 'ADVER_LOADED_REQUEST'; //accion leer un anuncio
+export const ADVER_LOADED_SUCCESS = 'ADVER_LOADED_SUCCESS';
+export const ADVER_LOADED_FAILURE = 'ADVER_LOADED_FAILURE';
+
 export const ADVERT_CREATED = 'ADVERT_CREATED'; //creacion de anuncio
 
 export const ADD_TAGS_REQUEST = 'ADD_TAGS_REQUEST';
