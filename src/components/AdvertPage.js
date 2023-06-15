@@ -18,22 +18,20 @@ const AdvertPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const advert = useSelector(getReduxAdvert(params.id));
 
-  const [_advert, setAdvert] = useState([]);
-
   useEffect(() => {
     //setIsLoading(true);
     //dispatch(advertLoad(params.id));
 
     dispatch(advertLoad(params.id))
       //.then(advert => setAdvert(advert))
-      .then(() => setIsLoading(false))
-      .catch(error => {
-        if (error.response.status === 404) {
-          return navigate('/404');
-        }
-        setError(error);
-      });
-  }, [params.id, navigate, dispatch]);
+      .then(() => setIsLoading(false));
+    // .catch(error => {
+    //   if (error.response.status === 404) {
+    //     return navigate('/404');
+    //   }
+    //   setError(error);
+    // });
+  }, [params.id, dispatch]);
 
   const handleSubmitDelete = event => {
     deleteAdvert(params.id)

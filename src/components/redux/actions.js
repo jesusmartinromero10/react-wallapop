@@ -61,13 +61,13 @@ export const advertsLoadedFailure = error => ({
 
 export const advertsLoaded =
   () =>
-  async (dispatch, getState, { adverts: advertsService }) => {
+  async (dispatch, getState, { api }) => {
     if (areAdvertsLoaded(getState())) {
       return;
     }
     dispatch(advertsLoadedRequest());
     try {
-      const adverts = await advertsService.getAllAdvert();
+      const adverts = await api.adverts.getAllAdvert();
       dispatch(advertsLoadedSuccess(adverts));
     } catch (error) {
       dispatch(advertsLoadedFailure(error));
@@ -94,18 +94,20 @@ export const advertLoadedFailure = error => ({
 
 export const advertLoad =
   id =>
-  async (dispatch, getState, { adverts: advertsService }) => {
+  async (dispatch, getState, { api, router }) => {
     const isLoaded = getReduxAdvert(id)(getState());
     if (isLoaded) {
       return;
     }
     dispatch(advertLoadedRequest());
     try {
-      const advert = await advertsService.getAdvert(id);
+      const advert = await api.adverts.getAdvert(id);
       dispatch(advertLoadedSuccess(advert));
     } catch (error) {
       dispatch(advertLoadedFailure(error));
-      throw error;
+      if (error.response.status === 404) {
+        return router.navigate('/404');
+      }
     }
   };
 
@@ -137,10 +139,10 @@ export const addAdvertsFailure = error => ({
 });
 
 export const authlogin = (credential, checked) =>
-  async function (dispatch, _getState, { auth }) {
+  async function (dispatch, _getState, { api, router }) {
     dispatch(authLoginRequest()); //saber si esta cargando la llamada
     try {
-      await auth.login(credential, checked);
+      await api.auth.login(credential, checked);
     } catch (error) {
       dispatch(authLoginFailure(error));
 
@@ -148,9 +150,11 @@ export const authlogin = (credential, checked) =>
     }
     //leguearse
     dispatch(authLoginSuccess());
+    const to = router.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
+    router.navigate(to);
   };
 
-export const advertCreateRequest = advert => ({
+export const advertCreateRequest = () => ({
   type: ADVERT_CREATED_REQUEST,
 });
 
@@ -167,14 +171,17 @@ export const advertCreateFailure = error => ({
 
 export const advertCreated =
   advert =>
-  async (dispatch, _getState, { newAdvert: advertsService }) => {
+  async (dispatch, _getState, { api, router }) => {
     dispatch(advertCreateRequest());
     try {
-      const createAdvert = await advertsService.CreateNewAdvert(advert);
+      const createAdvert = await api.newAdvert.CreateNewAdvert(advert);
       dispatch(advertCreateSuccess(createAdvert));
+      router.navigate('/');
       return createAdvert;
     } catch (error) {
       dispatch(advertCreateFailure(error));
-      throw error;
+      error.response?.status === 400
+        ? router.navigate('/login')
+        : router.navigate('/');
     }
   };

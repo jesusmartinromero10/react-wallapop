@@ -1,39 +1,32 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
 import '../styles/styleNewAdvert.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { advertCreated } from './redux/actions';
-import { getUi } from './redux/selectors';
 
 const NewAdvertPage = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(getUi);
   const [sale, setSale] = useState('');
-  const navigate = useNavigate();
-  const [error, setError] = useState(null);
 
-  const handleSubmitNewPage = async event => {
+  const handleSubmitNewPage = event => {
     event.preventDefault();
-    try {
-      await dispatch(
-        advertCreated({
-          name: event.target.name.value,
-          sale: sale ? false : true,
-          price: event.target.price.value,
-          tags: event.target.tags.value,
-          photo: event.target.photo.files[0],
-        }),
-      );
+    dispatch(
+      advertCreated({
+        name: event.target.name.value,
+        sale: sale ? false : true,
+        price: event.target.price.value,
+        tags: event.target.tags.value,
+        photo: event.target.photo.files[0],
+      }),
+    );
 
-      navigate('/');
-    } catch (error) {
-      error.response?.status === 400
-        ? setError(`Introduzca algun dato para crear el anuncio`)
-        : setError('Compruebe conexion internet');
-    }
+    //   // navigate('/');
+    // } catch (error) {
+    //   error.response?.status === 400
+    //     ? setError(`Introduzca algun dato para crear el anuncio`)
+    //     : setError('Compruebe conexion internet');
+    // }
   };
   const [data, setData] = useState({
     name: '',
@@ -129,7 +122,6 @@ const NewAdvertPage = () => {
           className="inputPhotoNewAdvert"
         />
         <Button>Crear</Button>
-        <div>{error}</div>
       </form>
     </Layout>
   );

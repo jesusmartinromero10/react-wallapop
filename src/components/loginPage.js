@@ -9,8 +9,6 @@ import { getUi } from './redux/selectors';
 
 function LoginPage({ children, placeholderEmail, placeholderPassword }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
   const { isLoading, error } = useSelector(getUi);
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState('');
@@ -21,8 +19,8 @@ function LoginPage({ children, placeholderEmail, placeholderPassword }) {
     await dispatch(authlogin(credential, checked));
 
     //redirect to pathname
-    const to = location.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
-    navigate(to); //con las interrogaciones es por si viene esos estados vacios para que no de error pues si vienen vacio vas a /
+    // const to = location.state?.from?.pathname || '/'; //cogemos la redireccion de la pagina que veniamos que nos viene de la pagina de RequireAuth
+    // navigate(to); //con las interrogaciones es por si viene esos estados vacios para que no de error pues si vienen vacio vas a /
   };
   const [credential, setCredential] = useState({
     email: '',
