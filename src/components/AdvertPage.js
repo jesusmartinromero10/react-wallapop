@@ -25,7 +25,7 @@ const AdvertPage = () => {
     //dispatch(advertLoad(params.id));
 
     dispatch(advertLoad(params.id))
-      .then(advert => setAdvert(advert))
+      //.then(advert => setAdvert(advert))
       .then(() => setIsLoading(false))
       .catch(error => {
         if (error.response.status === 404) {

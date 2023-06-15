@@ -6,6 +6,9 @@ import {
   ADD_ADVERTS_FAILURE,
   ADD_ADVERTS_REQUEST,
   ADD_ADVERTS_SUCCESS,
+  ADVERT_CREATED_FAILURE,
+  ADVERT_CREATED_REQUEST,
+  ADVERT_CREATED_SUCCESS,
   ADVERT_LOADED_FAILURE,
   ADVERT_LOADED_REQUEST,
   ADVERT_LOADED_SUCCESS,
@@ -145,4 +148,33 @@ export const authlogin = (credential, checked) =>
     }
     //leguearse
     dispatch(authLoginSuccess());
+  };
+
+export const advertCreateRequest = advert => ({
+  type: ADVERT_CREATED_REQUEST,
+});
+
+export const advertCreateSuccess = advert => ({
+  type: ADVERT_CREATED_SUCCESS,
+  payload: advert,
+});
+
+export const advertCreateFailure = error => ({
+  type: ADVERT_CREATED_FAILURE,
+  error: true,
+  payload: error,
+});
+
+export const advertCreated =
+  advert =>
+  async (dispatch, _getState, { newAdvert: advertsService }) => {
+    dispatch(advertCreateRequest());
+    try {
+      const createAdvert = await advertsService.CreateNewAdvert(advert);
+      dispatch(advertCreateSuccess(createAdvert));
+      return createAdvert;
+    } catch (error) {
+      dispatch(advertCreateFailure(error));
+      throw error;
+    }
   };

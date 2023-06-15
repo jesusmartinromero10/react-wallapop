@@ -8,6 +8,7 @@ import * as actionCreators from './actions';
 import thunk from 'redux-thunk';
 import * as auth from '../../api/servicesLogin';
 import * as adverts from '../../api/servicesAdvert';
+import * as newAdvert from '../../api/servicesNewAdvert';
 
 // const reducer = combineReducers({
 //   auth,
@@ -21,7 +22,7 @@ const composeEnhancers = composeWithDevTools({
   actionCreators,
 });
 
-const middleware = [thunk.withExtraArgument({ auth, adverts })];
+const middleware = [thunk.withExtraArgument({ auth, adverts, newAdvert })];
 
 export default function configureStore(preloadedState) {
   //para importar desde fuera y decidir desde fuera como crear el store como nos covenga mas

@@ -4,21 +4,29 @@ import { CreateNewAdvert } from '../api/servicesNewAdvert';
 import Button from './button';
 import Layout from './layaut/Layout';
 import '../styles/styleNewAdvert.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { advertCreated } from './redux/actions';
+import { getUi } from './redux/selectors';
 
 const NewAdvertPage = () => {
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(getUi);
   const [sale, setSale] = useState('');
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+
   const handleSubmitNewPage = async event => {
     event.preventDefault();
     try {
-      await CreateNewAdvert({
-        name: event.target.name.value,
-        sale: sale ? false : true,
-        price: event.target.price.value,
-        tags: event.target.tags.value,
-        photo: event.target.photo.files[0],
-      });
+      await dispatch(
+        advertCreated({
+          name: event.target.name.value,
+          sale: sale ? false : true,
+          price: event.target.price.value,
+          tags: event.target.tags.value,
+          photo: event.target.photo.files[0],
+        }),
+      );
 
       navigate('/');
     } catch (error) {
