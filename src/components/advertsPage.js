@@ -7,7 +7,11 @@ import '../styles/styleAdvertsPage.css';
 import Layout from './layaut/Layout';
 import { getAdverts, getUi } from './redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { advertsLoaded } from './redux/actions';
+import {
+  addAdvertsSuccess,
+  advertsLoaded,
+  advertsLoadedSuccess,
+} from './redux/actions';
 
 function AdvertsPage() {
   const [data, setData] = useState({
@@ -25,8 +29,8 @@ function AdvertsPage() {
   const [_isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(advertsLoaded());
-  }, [dispatch]);
+    dispatch(advertsLoaded(advert));
+  }, [dispatch, advert]);
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -41,37 +45,37 @@ function AdvertsPage() {
   // }, [navigate]);
   const [checked, setCheked] = useState(null);
 
-  // const handleClickFilter = event => {
-  //   event.preventDefault();
+  const handleClickFilter = event => {
+    event.preventDefault();
 
-  //   const state = () => {
-  //     let resultSale = '';
+    const state = () => {
+      let resultSale = '';
 
-  //     if (data.sales) {
-  //       resultSale = true;
-  //     } else if (data.buy) {
-  //       resultSale = false;
-  //     }
-  //     return resultSale;
-  //   };
-  //   if (state() === true || state() === false) {
-  //     let filterPrice = advertFilter.filter(
-  //       advert =>
-  //         advert.price >= data.priceMin &&
-  //         advert.price <= data.priceMax &&
-  //         advert.sale === state(),
-  //     );
+      if (data.sales) {
+        resultSale = true;
+      } else if (data.buy) {
+        resultSale = false;
+      }
+      return resultSale;
+    };
+    if (state() === true || state() === false) {
+      let filterPrice = advert.filter(
+        advert =>
+          advert.price >= data.priceMin &&
+          advert.price <= data.priceMax &&
+          advert.sale === state(),
+      );
 
-  //     setAdverts(filterPrice);
-  //   } else {
-  //     let filterPrice = advertFilter.filter(
-  //       advert =>
-  //         advert.price >= data.priceMin && advert.price <= data.priceMax,
-  //     );
+      dispatch(advertsLoadedSuccess(filterPrice));
+    } else {
+      let filterPrice = advert.filter(
+        advert =>
+          advert.price >= data.priceMin && advert.price <= data.priceMax,
+      );
 
-  //     setAdverts(filterPrice);
-  //   }
-  // };
+      dispatch(advertsLoadedSuccess(filterPrice));
+    }
+  };
 
   const handleChangeFilterSaleCheck = event => {
     event.target.name === 'sales'
@@ -137,8 +141,8 @@ function AdvertsPage() {
               onChange={handleChangeFilterPriceMax}
               placeholder="introduzca precio maximo"
             />
-            <Button>filtrar</Button>
-            {/* <Button onClick={handleClickFilter}>filtrar</Button> */}
+
+            <Button onClick={handleClickFilter}>filtrar</Button>
           </form>
         )}
         {!!advert.length ? (
