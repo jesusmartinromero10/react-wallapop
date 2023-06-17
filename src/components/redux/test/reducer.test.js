@@ -26,10 +26,10 @@ describe('Testing React Redux Reducer', () => {
     const stateAdverts = defoultState.adverts;
 
     it('should manage "ADDADVERTSSUCCESS" action', () => {
-      const advertsArray = [{}, {}];
+      const advertsArray = [];
       const action = addAdvertsSuccess(advertsArray);
       expect(adverts(stateAdverts, action)).toEqual({
-        areLoaded: true,
+        areLoaded: false,
         data: advertsArray,
       });
     });
