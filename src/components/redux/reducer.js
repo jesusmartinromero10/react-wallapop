@@ -5,6 +5,7 @@ import {
   ADVER_LOADED_SUCCESS,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
+  TAGS_SUCCESS,
 } from './types';
 
 //creamos el estado que va a tener por defecto
@@ -14,6 +15,7 @@ export const defoultState = {
     areLoaded: false,
     data: [],
   },
+  tags: [],
   ui: {
     isLoading: false,
     error: null,
@@ -66,6 +68,13 @@ export function adverts(state = defoultState.adverts, action) {
     default:
       return state;
   }
+}
+
+export function tags(state = defoultState.tags, action) {
+  if (action.type === TAGS_SUCCESS) {
+    return action.payload;
+  }
+  return state;
 }
 
 export function ui(state = defoultState.ui, action) {

@@ -10,3 +10,5 @@ export const getReduxAdvert = id => state =>
 export const getUi = state => state.ui;
 
 export const areAdvertsLoaded = state => state.adverts.areLoaded;
+
+export const getReduxTags = state => state.tags;

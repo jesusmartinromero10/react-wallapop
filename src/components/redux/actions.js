@@ -22,6 +22,9 @@ import {
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT,
+  TAGS_FAILURE,
+  TAGS_REQUEST,
+  TAGS_SUCCESS,
 } from './types';
 
 export const authLoginRequest = () => ({
@@ -222,3 +225,31 @@ export const deleteAdvertId =
         : router.navigate('/');
     }
   };
+
+export const getTagsApi =
+  () =>
+  async (dispatch, _getState, { api: { adverts } }) => {
+    dispatch(tagRequire());
+    try {
+      const tags = await adverts.getTags();
+      console.log('tagas', tags);
+      dispatch(tagSuccess(tags));
+    } catch (error) {
+      dispatch(tagFailure(error));
+    }
+  };
+
+export const tagRequire = () => ({
+  type: TAGS_REQUEST,
+});
+
+export const tagSuccess = tags => ({
+  type: TAGS_SUCCESS,
+  payload: tags,
+});
+
+export const tagFailure = error => ({
+  type: TAGS_FAILURE,
+  payload: error,
+  error: true,
+});

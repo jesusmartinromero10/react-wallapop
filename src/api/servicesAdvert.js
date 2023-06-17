@@ -15,3 +15,6 @@ export const deleteAdvert = async id => {
 export const getAllAdvert = () => {
   return client.get(advertURL); //hace la llamada para traer los anuncios
 };
+export const getTags = () => {
+  return client.get('/api/v1/adverts/tags');
+};

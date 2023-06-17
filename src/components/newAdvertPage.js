@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './button';
 import Layout from './layaut/Layout';
 import '../styles/styleNewAdvert.css';
-import { useDispatch } from 'react-redux';
-import { advertCreated } from './redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { advertCreated, getTagsApi } from './redux/actions';
+import { getReduxTags } from './redux/selectors';
 
 const NewAdvertPage = () => {
   const dispatch = useDispatch();
+  const tags = useSelector(getReduxTags);
+
+  useEffect(() => {
+    dispatch(getTagsApi());
+  }, [dispatch]);
+
   const [sale, setSale] = useState('');
 
   const handleSubmitNewPage = event => {
@@ -107,10 +114,16 @@ const NewAdvertPage = () => {
           required
           className="inputTagsNewAdvert"
         >
-          <option value="lifestyle">Lifestyle</option>
+          {tags.map(tags => (
+            <option key={tags} value={tags}>
+              {tags}
+            </option>
+          ))}
+
+          {/* <option value="lifestyle">Lifestyle</option>
           <option value="mobile">Mobile</option>
           <option value="motor">Motor</option>
-          <option value="work">Work</option>
+          <option value="work">Work</option> */}
         </select>
         <label name="photo" className="labelNewAdvert">
           Elige una fotografía

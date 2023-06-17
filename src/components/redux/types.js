@@ -14,9 +14,9 @@ export const ADVER_LOADED_FAILURE = 'ADVER_LOADED_FAILURE';
 
 export const ADVERT_CREATED = 'ADVERT_CREATED'; //creacion de anuncio
 
-// export const ADD_TAGS_REQUEST = 'ADD_TAGS_REQUEST';
-// export const ADD_TAGS_SUCCESS = 'ADD_TAGS_SUCCESS';
-// export const ADD_TAGS_FAILURE = 'ADD_TAGS_FAILURE';
+export const TAGS_REQUEST = 'TAGS_REQUEST';
+export const TAGS_SUCCESS = 'TAGS_SUCCESS';
+export const TAGS_FAILURE = 'TAGS_FAILURE';
 
 export const ADD_ADVERTS_REQUEST = 'ADD_ADVERTS_REQUEST';
 export const ADD_ADVERTS_SUCCESS = 'ADD_ADVERTS_SUCCESS';
