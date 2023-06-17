@@ -27,17 +27,18 @@ function AdvertsPage() {
   useEffect(() => {
     dispatch(advertsLoaded());
   }, [dispatch]);
-  useEffect(() => {
-    setIsLoading(true);
-    getAllAdvert()
-      .then(adverts => setAdvertFilter(adverts))
-      .then(() => setIsLoading(false))
-      .catch(error => {
-        if (error.response.status === 404) {
-          navigate('/404');
-        }
-      });
-  }, [navigate]);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getAllAdvert()
+  //     .then(adverts => setAdvertFilter(adverts))
+  //     .then(() => setIsLoading(false))
+  //     .catch(error => {
+  //       if (error.response.status === 404) {
+  //         navigate('/404');
+  //       }
+  //     });
+  // }, [navigate]);
   const [checked, setCheked] = useState(null);
 
   // const handleClickFilter = event => {

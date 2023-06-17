@@ -1,5 +1,6 @@
 import {
   ADVERT_CREATED_SUCCESS,
+  ADVERT_DELETED_SUCCESS,
   ADVERT_LOADED_SUCCESS,
   ADVER_LOADED_SUCCESS,
   AUTH_LOGIN_SUCCESS,
@@ -56,6 +57,12 @@ export function adverts(state = defoultState.adverts, action) {
       return { areLoaded: false, data: [action.payload] };
     case ADVERT_CREATED_SUCCESS:
       return { ...state, data: [action.payload, ...state.data] };
+    case ADVERT_DELETED_SUCCESS:
+      console.log('state', state);
+      return {
+        ...state,
+        data: state.data.filter(advert => advert.id !== action.payload),
+      };
     default:
       return state;
   }

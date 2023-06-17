@@ -9,6 +9,9 @@ import {
   ADVERT_CREATED_FAILURE,
   ADVERT_CREATED_REQUEST,
   ADVERT_CREATED_SUCCESS,
+  ADVERT_DELETED_FAILURE,
+  ADVERT_DELETED_REQUEST,
+  ADVERT_DELETED_SUCCESS,
   ADVERT_LOADED_FAILURE,
   ADVERT_LOADED_REQUEST,
   ADVERT_LOADED_SUCCESS,
@@ -182,6 +185,40 @@ export const advertCreated =
       dispatch(advertCreateFailure(error));
       error.response?.status === 400
         ? router.navigate('/login')
+        : router.navigate('/');
+    }
+  };
+
+export const advertDeleteRequest = () => ({
+  type: ADVERT_DELETED_REQUEST,
+});
+
+export const advertDeleteSuccess = id => ({
+  type: ADVERT_DELETED_SUCCESS,
+  payload: id,
+});
+
+export const advertDeleteFailure = error => ({
+  type: ADVERT_DELETED_FAILURE,
+  error: true,
+  payload: error,
+});
+
+export const deleteAdvertId =
+  id =>
+  async (dispatch, _getState, { api: { adverts }, router }) => {
+    dispatch(advertDeleteRequest());
+    try {
+      await adverts.deleteAdvert(id);
+
+      dispatch(advertDeleteSuccess(id));
+      alert('Anuncio borrado correctamente');
+      router.navigate('/');
+    } catch (error) {
+      dispatch(advertDeleteFailure(error));
+      console.log(error);
+      error.response?.status === 404
+        ? router.navigate('/404')
         : router.navigate('/');
     }
   };

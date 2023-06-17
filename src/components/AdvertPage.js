@@ -8,7 +8,7 @@ import Layout from './layaut/Layout';
 import '../styles/styleAdvertPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getReduxAdvert } from './redux/selectors';
-import { advertLoad } from './redux/actions';
+import { advertLoad, deleteAdvertId } from './redux/actions';
 
 const AdvertPage = () => {
   const dispatch = useDispatch();
@@ -33,15 +33,8 @@ const AdvertPage = () => {
     // });
   }, [params.id, dispatch]);
 
-  const handleSubmitDelete = event => {
-    deleteAdvert(params.id)
-      .then(navigate('/'))
-      .catch(error => {
-        if (error.response.status === 404) {
-          return navigate('/404');
-        }
-        setError(error);
-      });
+  const handleSubmitDelete = () => {
+    dispatch(deleteAdvertId(params.id));
   };
 
   return (
